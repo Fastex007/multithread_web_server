@@ -1,7 +1,7 @@
 import random
 from time import sleep
 
-from api.v1.services import get_iso_8601_datetime
+from api.v1.services import get_iso_8601_datetime, get_monitoring_data
 
 
 def heave_calculation():
@@ -15,4 +15,8 @@ def heave_calculation():
 
 
 def request_count():
-    return {"request_count": "request_count"}
+    monitoring_data = get_monitoring_data()
+    result = {
+        "total": monitoring_data,
+    }
+    return result

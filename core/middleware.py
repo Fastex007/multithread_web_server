@@ -1,7 +1,7 @@
 import json
 from http import HTTPStatus
 
-from api.v1.urls import router
+from core.urls import router
 
 
 class RequestPrepare:
@@ -10,8 +10,16 @@ class RequestPrepare:
     def __init__(self, path):
         self.__path = path
 
+    @staticmethod
+    def prepare_path(path: str) -> str:
+        path = path.lower()
+        if not path.endswith("/"):
+            path = f"{path}/"
+        return path
+
     def response_prepare(self) -> tuple:
-        method = router.get(self.__path)
+        path = self.prepare_path(self.__path)
+        method = router.get(path)
 
         if not method:
             return self.handle_error(HTTPStatus.NOT_FOUND, "Страница не найдена.")

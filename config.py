@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from dotenv import dotenv_values
 
 
@@ -11,3 +13,12 @@ class Config:
         """Получает значение переменной окружения по имени."""
 
         return self.__env_variables.get(str(var_name), default)
+
+
+@dataclass
+class Parameters:
+    """Параметры сервиса."""
+
+    config = None
+    logger = None
+    monitoring = None
