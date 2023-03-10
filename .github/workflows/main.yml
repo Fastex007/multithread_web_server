@@ -40,7 +40,7 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: .
+          local: core
           remote: /home/${{ secrets.USER }}/multithread_web_server/
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
