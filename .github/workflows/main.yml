@@ -54,6 +54,7 @@ jobs:
           script: |
             sudo rm -rf multithread_web_server
             git clone ${{ secrets.CLONE_ADDRESS }}
+            cd multithread_web_server
             cp env .env
             rm env
             sudo docker-compose stop
