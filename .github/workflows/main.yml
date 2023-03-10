@@ -23,25 +23,25 @@ jobs:
           context: .
           tags: olegpronkin/srv:latest
 
-#   clone_project:
-#     runs-on: ubuntu-latest
-#     needs: build_and_push_to_docker_hub
-#     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
-#     steps:
-#       - name: clone project
-#         uses: appleboy/ssh-action@v0.1.4
-#         with:
-#           host: ${{ secrets.HOST }}
-#           username: ${{ secrets.USER }}
-#           key: ${{ secrets.SSH_KEY }}
-#           passphrase: ${{ secrets.PASSPHRASE }}
-#           script: |
-#             sudo rm -rf multithread_web_server
-#             git clone ${{ secrets.CLONE_ADDRESS }}
+  clone_project:
+    runs-on: ubuntu-latest
+    needs: build_and_push_to_docker_hub
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    steps:
+      - name: clone project
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            sudo rm -rf multithread_web_server
+            git clone ${{ secrets.CLONE_ADDRESS }}
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build_and_push_to_docker_hub
+    needs: clone_project
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     steps:
       - name: executing remote ssh commands to deploy
