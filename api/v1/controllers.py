@@ -4,7 +4,15 @@ from time import sleep
 from api.v1.services import get_iso_8601_datetime, get_monitoring_data
 
 
-def heave_calculation():
+def index() -> dict:
+    from core.urls import router
+    result = {
+        "links": [url for url in router.keys()]
+    }
+    return result
+
+
+def heave_calculation() -> dict:
     sleep_time = random.randint(1, 5)
     sleep(sleep_time)
     result = {
@@ -14,7 +22,7 @@ def heave_calculation():
     return result
 
 
-def request_count():
+def request_count() -> dict:
     monitoring_data = get_monitoring_data()
     result = {
         "total": monitoring_data,

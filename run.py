@@ -27,12 +27,12 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(response.encode(encoding=config.get_env(var_name="ENCODING", default="utf_8")))
 
 
-class ThreadingSimpleServer(ThreadingMixIn, HTTPServer):
+class ServerThreading(ThreadingMixIn, HTTPServer):
     pass
 
 
 def run_server(service_address: str = 'localhost', service_port=80) -> None:
-    server = ThreadingSimpleServer((service_address, service_port), RequestHandler)
+    server = ServerThreading((service_address, service_port), RequestHandler)
     print(f"Запущен сервер http://{service_address}:{service_port}")
     server.serve_forever()
 
