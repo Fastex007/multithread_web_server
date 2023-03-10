@@ -23,17 +23,17 @@ jobs:
           context: .
           tags: olegpronkin/srv:latest
 
-#   deploy:
-#     runs-on: ubuntu-latest
-#     needs: build_and_push_to_docker_hub
-#     steps:
-#       - name: executing remote ssh commands to deploy
-#         uses: appleboy/ssh-action@v0.1.4
-#         with:
-#           host: ${{ secrets.HOST }}
-#           username: ${{ secrets.USER }}
-#           key: ${{ secrets.SSH_KEY }}
-#           passphrase: ${{ secrets.PASSPHRASE }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_push_to_docker_hub
+    steps:
+      - name: executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
 #           script: |
 #             sudo docker-compose stop
 #             sudo docker-compose rm srv
