@@ -53,6 +53,8 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd multithread_web_server
+            cp env .env
+            rm env
             sudo docker pull olegpronkin/srv
             sudo docker-compose stop
             sudo docker-compose rm srv
