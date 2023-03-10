@@ -34,7 +34,10 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-#           script: |
+          script: |
+              echo "-=-=-=-=-=-=-=-"
+              ls -la
+              echo "-=-=-=-=-=-=-=-"
 #             sudo docker-compose stop
 #             sudo docker-compose rm srv
 #             cp env .env
