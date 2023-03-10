@@ -58,7 +58,7 @@ jobs:
             cp env .env
             rm env
             sudo docker-compose stop
-            sudo docker-compose rm srv -y
+            sudo docker-compose build srv
             sudo docker-compose up -d
 
   send_message:
