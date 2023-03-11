@@ -25,9 +25,9 @@ class ServiceMonitoring:
 
 
 def duration_monitoring(method):
-    def wrapped(self):
+    def wrapped(self, *args):
         start_time = datetime.now()
-        method(self)
+        method(self, *args)
         time_value = (datetime.now() - start_time).total_seconds()
         from run import Parameters
         Parameters.monitoring.add_data(time=time_value)
