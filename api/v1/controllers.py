@@ -1,7 +1,7 @@
 import random
 from time import sleep
 
-from api.v1.services import get_iso_8601_datetime, get_monitoring_data
+from api.v1.services import get_iso_8601_datetime, get_monitoring_data, reset_data
 
 
 def index() -> dict:
@@ -27,4 +27,9 @@ def request_count() -> dict:
     result = {
         "total": monitoring_data,
     }
+    return result
+
+
+def reset_counter() -> dict:
+    result = reset_data()
     return result

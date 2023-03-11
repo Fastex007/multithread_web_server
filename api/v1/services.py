@@ -12,3 +12,10 @@ def get_monitoring_data() -> dict:
         "queries": Parameters.monitoring.get_request_count(),
         "seconds": Parameters.monitoring.get_request_processing_total_time(),
     }
+
+
+def reset_data() -> dict:
+    result = Parameters.monitoring.reset_data(),
+    if result:
+        return {"SUCCESS": "Счётчик сброшен"}
+    return {"WARNING": "Что-то пошло не так, при сбросе счётчика"}

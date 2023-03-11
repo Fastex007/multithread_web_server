@@ -1,8 +1,8 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from socketserver import ThreadingMixIn
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
-from config import Config, Parameters
+from config import Parameters
 from core.middleware import RequestPrepare
+from core.mixin import ThreadPoolMixin
 from core.service_monitoring import ServiceMonitoring, duration_monitoring
 
 
@@ -27,18 +27,20 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(response.encode(encoding=config.get_env(var_name="ENCODING", default="utf_8")))
 
 
-class ServerThreading(ThreadingMixIn, HTTPServer):
-    pass
+class ServerThreading(ThreadPoolMixin, HTTPServer):
+    pool_size = int(Parameters.config.get_env("THREAD_COUNT"))
 
 
 def run_server(service_address: str = 'localhost', service_port=80) -> None:
-    server = ServerThreading((service_address, service_port), RequestHandler)
+    server = ServerThreading(
+        server_address=(service_address, service_port),
+        RequestHandlerClass=RequestHandler,
+    )
     print(f"Запущен сервер http://{service_address}:{service_port}")
     server.serve_forever()
 
 
 if __name__ == '__main__':
-    Parameters.config = Config()
     Parameters.monitoring = ServiceMonitoring()
     run_server(
         service_address=Parameters.config.get_env("SERVICE_ADDRESS"),

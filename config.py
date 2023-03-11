@@ -19,6 +19,6 @@ class Config:
 class Parameters:
     """Параметры сервиса."""
 
-    config = None
+    config = Config()
     logger = None
     monitoring = None

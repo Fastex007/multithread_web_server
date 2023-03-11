@@ -14,9 +14,14 @@ class ServiceMonitoring:
     def get_request_processing_total_time(self) -> float:
         return self.__request_processing_total_time
 
-    def add_data(self, time) -> None:
+    def add_data(self, time: int) -> None:
         self.__request_count += 1
         self.__request_processing_total_time += time
+
+    def reset_data(self) -> bool:
+        self.__request_count = 0
+        self.__request_processing_total_time = 0
+        return True
 
 
 def duration_monitoring(method):
