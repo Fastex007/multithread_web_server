@@ -1,3 +1,6 @@
+import logging
+import os
+import sys
 from dataclasses import dataclass
 
 from dotenv import dotenv_values
@@ -15,10 +18,34 @@ class Config:
         return self.__env_variables.get(str(var_name), default)
 
 
+class Logger:
+    """Логгер."""
+
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    def __init__(self):
+        self.set_logger_config()
+
+    @staticmethod
+    def set_logger_config():
+        logging.basicConfig(
+            level=logging.INFO,
+            format=(
+                '%(asctime)s [%(levelname)s] - '
+                '(%(filename)s).%(funcName)s:%(lineno)d - %(message)s'
+            ),
+            handlers=[
+                logging.FileHandler(f'{Logger.BASE_DIR}/output.log'),
+                logging.StreamHandler(sys.stdout)
+            ]
+        )
+
+
 @dataclass
 class Parameters:
     """Параметры сервиса."""
 
     config = Config()
-    logger = None
+    Logger()
+    logger = logging
     monitoring = None
