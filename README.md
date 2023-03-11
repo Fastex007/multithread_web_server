@@ -1,6 +1,8 @@
 # multithread_web_server
 [![srv](https://github.com/Fastex007/multithread_web_server/actions/workflows/main.yml/badge.svg)](https://github.com/Fastex007/multithread_web_server/actions/workflows/main.yml)
 
+### Сервис развернут на http://51.250.68.104:9000
+
 ## Описание проекта
 Тестовый web-сервер.
 
